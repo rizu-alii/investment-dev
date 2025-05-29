@@ -8,11 +8,13 @@ import Cookies from 'js-cookie'
 import { adminSidebarData } from '@/components/layout/data/sidebar-data'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
+import { useLocation } from 'react-router-dom'
 
 function UserHistory() {
   const defaultOpen = Cookies.get('sidebar_state') !== 'false'
-  const search = useSearch({ from: '/admin/user-history' })
-  const userId = parseInt(search.id)
+  const location = useLocation()
+  const searchParams = new URLSearchParams(location.search)
+  const userId = parseInt(searchParams.get('id') || '')
   const [history, setHistory] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
